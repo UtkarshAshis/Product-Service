@@ -7,6 +7,7 @@ import com.example.ProductService.GlobalException.ResourceNotFoundException;
 import com.example.ProductService.Mapper.CategoryMapper;
 import com.example.ProductService.Repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService{
         this.categoryMapper = categoryMapper;
         this.subCategoryService = subCategoryService;
     }
-
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @Override
     public Category createCategory(CategoryDto categoryDto) {
         Category category = categoryMapper.toEntity(categoryDto);
